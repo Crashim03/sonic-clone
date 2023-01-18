@@ -278,7 +278,7 @@ MonoBehaviour:
       - m_Target: {fileID: 401877174}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Move
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -337,6 +337,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3475ed1a-c167-47fe-adac-9972077fc673
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 401877174}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8494c07e-f9d9-4eed-b88f-a0d3017a6355
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -354,6 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bb21eaecba8c04388b7a34a07fbb20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rb: {fileID: 401877169}
+  _acceleration: 0
+  _speed: 0
 --- !u!1 &417753617
 GameObject:
   m_ObjectHideFlags: 0
