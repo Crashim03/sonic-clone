@@ -6,20 +6,15 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public State _state;
-    public Rigidbody2D _rb;
-    public float _acceleration;
-    public float _speed;
 
     private void Start()
     {
         _state = new Idle();
-        _speed = 5;
-        _acceleration = 0.5f;
     }
 
     private void Update()
     {
-
+        _state.Decelerate();
     }
 
     public void Jump() { _state.Jump(); }
