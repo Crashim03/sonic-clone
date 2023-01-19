@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 
 public class Idle : State
 {
-    public float _speed = 0;
+    public float _speed;
     public float _maxSpeed = 10;
-    public float _acceleration = 0.1f;
-    public float _deceleration = 0.4f;
+    public float _acceleration = 0.4f;
+    public float _deceleration = 0.6f;
     public float _direction = 0;
 
     public float GetSpeed()
@@ -85,6 +85,7 @@ public class Idle : State
                 if (_speed > 0) { _speed = 0; }
             }
         }
+
 
         rb.velocity = new Vector2(_speed, rb.velocity.y);
     }

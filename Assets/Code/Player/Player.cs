@@ -25,4 +25,6 @@ public class Player : MonoBehaviour
     public void Accelerate(InputAction.CallbackContext context) { _state.Accelerate(context); }
 
     public void Crouch() { _state.Crouch(); }
+
+    public void ChangeState(State state) { _state = state; }
 }
