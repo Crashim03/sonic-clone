@@ -11,12 +11,12 @@ public class Jumping : State
 
     }
 
-    public void Jump()
+    public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jumping");
     }
 
-    public void Move(Rigidbody2D rb)
+    public void Move()
     {
         Debug.Log("Moving");
     }

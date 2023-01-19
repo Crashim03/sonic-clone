@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public interface State
 {
     float GetSpeed();
-    void Jump();
-    void Move(Rigidbody2D rb);
+    void Jump(InputAction.CallbackContext context);
+    void Move();
     void Crouch();
     void Accelerate(InputAction.CallbackContext context);
 }
