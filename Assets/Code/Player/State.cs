@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public interface State
 {
-    float GetSpeed();
     void Jump(InputAction.CallbackContext context);
     void Move();
     void Crouch();
+    void Ground();
     void Accelerate(InputAction.CallbackContext context);
 }

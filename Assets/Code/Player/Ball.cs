@@ -5,11 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Ball : State
 {
-    public float GetSpeed()
-    {
-        return 0f;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jumping");
@@ -28,4 +23,6 @@ public class Ball : State
     {
         Debug.Log("Accelerating");
     }
+
+    public void Ground() { }
 }

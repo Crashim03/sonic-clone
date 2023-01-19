@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public State _state;
     public Rigidbody2D _rb;
+
+    [System.NonSerialized]
     public float _speed = 0;
 
     private void Start()
@@ -32,6 +34,11 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, jump);
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        _state.Ground();
+    }
+
     public void Move(float direction, float acceleration, float deceleration, float max_speed)
     {
         if (direction > 0)
@@ -44,11 +51,14 @@ public class Player : MonoBehaviour
             }
             else
             {
-                _speed += acceleration;
-
-                if (_speed > max_speed)
+                if (_speed < max_speed)
                 {
-                    _speed = max_speed;
+                    _speed += acceleration;
+
+                    if (_speed > max_speed)
+                    {
+                        _speed = max_speed;
+                    }
                 }
             }
         }
@@ -62,11 +72,14 @@ public class Player : MonoBehaviour
             }
             else
             {
-                _speed -= acceleration;
-
-                if (_speed < -max_speed)
+                if (_speed > -max_speed)
                 {
-                    _speed = -max_speed;
+                    _speed -= acceleration;
+
+                    if (_speed < -max_speed)
+                    {
+                        _speed = -max_speed;
+                    }
                 }
             }
         }

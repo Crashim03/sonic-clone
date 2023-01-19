@@ -6,12 +6,6 @@ using UnityEngine.InputSystem;
 
 public class Spindash : State
 {
-    public Rigidbody2D _rb;
-    public float GetSpeed()
-    {
-        return 0f;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jumping");
@@ -36,4 +30,6 @@ public class Spindash : State
     {
         Debug.Log("Decelerating");
     }
+
+    public void Ground() { }
 }

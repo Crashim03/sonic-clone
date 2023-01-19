@@ -341,8 +341,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 401877174}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Jump
-        m_Mode: 1
+        m_MethodName: JumpAction
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

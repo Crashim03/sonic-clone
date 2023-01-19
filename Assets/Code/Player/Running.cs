@@ -6,22 +6,26 @@ using UnityEngine.InputSystem;
 
 public class Running : State
 {
+    public Player _player;
+
+    // Stats
     public float _maxSpeed = 10;
     public float _acceleration = 0.4f;
     public float _deceleration = 0.6f;
-    public float _direction = 0;
-    public Player _player;
+    public float _direction;
     public float _jump = 10f;
 
-    public float GetSpeed()
-    {
-        return 1;
-    }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
             _player.Jump(_jump);
+
+        _player.ChangeState(new Jumping()
+        {
+            _player = _player,
+            _direction = _direction
+        });
     }
 
     public void Accelerate(InputAction.CallbackContext context)
@@ -38,4 +42,6 @@ public class Running : State
     {
         _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
     }
+
+    public void Ground() { }
 }
