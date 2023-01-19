@@ -13,7 +13,7 @@ public class Running : State
     public float _acceleration = 0.4f;
     public float _deceleration = 0.6f;
     public float _direction;
-    public float _jump = 10f;
+    public float _jump = 15f;
 
 
     public void Jump(InputAction.CallbackContext context)

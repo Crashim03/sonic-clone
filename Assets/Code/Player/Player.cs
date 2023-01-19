@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public State _state;
     public Rigidbody2D _rb;
 
-    [System.NonSerialized]
     public float _speed = 0;
 
     private void Start()
