@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public interface State
 {
-    public RigidBody2D _rb;
+    float GetSpeed();
     void Jump();
-    void Move(InputAction.CallbackContext context);
+    void Move(Rigidbody2D rb);
     void Crouch();
-    void Decelerate();
+    void Accelerate(InputAction.CallbackContext context);
 }
