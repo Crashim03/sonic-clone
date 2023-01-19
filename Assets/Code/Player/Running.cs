@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,15 @@ using UnityEngine.InputSystem;
 
 public class Running : State
 {
+    public float _speed;
+    public float _maxSpeed = 10;
+    public float _acceleration = 0.4f;
+    public float _deceleration = 0.6f;
+    public float _direction = 0;
+
     public float GetSpeed()
     {
-        return 0f;
+        return _speed;
     }
 
     public void Jump()
@@ -15,9 +22,9 @@ public class Running : State
         Debug.Log("Jumping");
     }
 
-    public void Move(Rigidbody2D rb)
+    public void Accelerate(InputAction.CallbackContext context)
     {
-        Debug.Log("Moving");
+        _direction = context.ReadValue<Vector2>().x;
     }
 
     public void Crouch()
@@ -25,8 +32,61 @@ public class Running : State
         Debug.Log("Crouching");
     }
 
-    public void Accelerate(InputAction.CallbackContext context)
+    public void Move(Rigidbody2D rb)
     {
-        Debug.Log("Accelerating");
+        if (_direction > 0)
+        {
+            if (_speed < 0)
+            {
+                _speed += _deceleration * 2;
+
+                if (_speed > 0) { _speed = 0; }
+            }
+            else
+            {
+                _speed += _acceleration;
+
+                if (_speed > _maxSpeed)
+                {
+                    _speed = _maxSpeed;
+                }
+            }
+        }
+        else if (_direction < 0)
+        {
+            if (_speed > 0)
+            {
+                _speed -= _deceleration * 2;
+
+                if (_speed < 0) { _speed = 0; }
+            }
+            else
+            {
+                _speed -= _acceleration;
+
+                if (-_speed > _maxSpeed)
+                {
+                    _speed = -_maxSpeed;
+                }
+            }
+        }
+        else
+        {
+            if (_speed > 0)
+            {
+                _speed -= _deceleration;
+
+                if (_speed < 0) { _speed = 0; }
+            }
+            else if (_speed < 0)
+            {
+                _speed += _deceleration;
+
+                if (_speed > 0) { _speed = 0; }
+            }
+        }
+
+
+        rb.velocity = new Vector2(_speed, rb.velocity.y);
     }
 }

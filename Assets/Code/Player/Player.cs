@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _state = new Idle() { _speed = 0 };
+        _state = new Running() { _speed = 0 };
     }
 
     private void FixedUpdate()
