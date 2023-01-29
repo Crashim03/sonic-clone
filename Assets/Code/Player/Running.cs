@@ -44,4 +44,9 @@ public class Running : State
     }
 
     public void Ground() { }
+
+    public int GetState()
+    {
+        return 0;
+    }
 }

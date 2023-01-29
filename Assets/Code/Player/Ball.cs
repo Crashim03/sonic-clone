@@ -25,4 +25,9 @@ public class Ball : State
     }
 
     public void Ground() { }
+
+    public int GetState()
+    {
+        return 2;
+    }
 }

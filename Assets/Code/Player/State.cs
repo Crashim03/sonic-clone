@@ -10,4 +10,5 @@ public interface State
     void Crouch();
     void Ground();
     void Accelerate(InputAction.CallbackContext context);
+    int GetState();
 }

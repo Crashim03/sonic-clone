@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Jumping : State
+public class Falling : State
 {
     public Player _player;
 
@@ -41,6 +41,6 @@ public class Jumping : State
 
     public int GetState()
     {
-        return 1;
+        return 4;
     }
 }

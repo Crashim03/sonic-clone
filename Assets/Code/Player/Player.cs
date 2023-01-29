@@ -2,17 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+
+/* 
+States:
+    0: Running
+    1: Jumping
+    2: Ball
+    3: Spindash
+    4: Falling
+*/
 
 public class Player : MonoBehaviour
 {
     public State _state;
     public Rigidbody2D _rb;
-
+    public Animator _animator;
     public float _speed = 0;
+    public SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
         _state = new Running() { _player = this };
+    }
+
+    private void Update()
+    {
+        _animator.SetInteger("State", Math.Abs(_state.GetState()));
+        _animator.SetFloat("Speed", _speed);
+
+        if (_speed > 0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else if (_speed < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
     }
 
     private void FixedUpdate()

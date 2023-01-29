@@ -32,4 +32,9 @@ public class Spindash : State
     }
 
     public void Ground() { }
+
+    public int GetState()
+    {
+        return 3;
+    }
 }
