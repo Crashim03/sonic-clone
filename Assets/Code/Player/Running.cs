@@ -33,9 +33,16 @@ public class Running : State
         _direction = context.ReadValue<Vector2>().x;
     }
 
-    public void Crouch()
+    public void Crouch(InputAction.CallbackContext context)
     {
-        Debug.Log("Crouching");
+        if (context.started)
+        {
+            _player.ChangeState(new Spindash()
+            {
+                _player = _player,
+                _direction = _direction
+            });
+        }
     }
 
     public void Move()

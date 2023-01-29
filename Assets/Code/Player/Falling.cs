@@ -25,7 +25,7 @@ public class Falling : State
         _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
     }
 
-    public void Crouch()
+    public void Crouch(InputAction.CallbackContext context)
     {
         Debug.Log("Crouching");
     }

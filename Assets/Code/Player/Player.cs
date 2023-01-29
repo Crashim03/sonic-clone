@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetInteger("State", Math.Abs(_state.GetState()));
-        _animator.SetFloat("Speed", _speed);
+        _animator.SetInteger("State", _state.GetState());
+        _animator.SetFloat("Speed", Math.Abs(_speed));
 
         if (_speed > 0)
         {
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
     public void Accelerate(InputAction.CallbackContext context) { _state.Accelerate(context); }
 
-    public void Crouch() { _state.Crouch(); }
+    public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
 
     public void ChangeState(State state) { _state = state; }
 
