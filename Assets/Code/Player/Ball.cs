@@ -14,14 +14,16 @@ public class Ball : State
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
+        {
             _player.Jump(_jump);
 
-        _player.ChangeState(new Jumping()
-        {
-            _player = _player,
-            _direction = _direction
-        });
+            _player.ChangeState(new Jumping()
+            {
+                _player = _player,
+                _direction = _direction
+            });
+        }
     }
 
     public void Move()
@@ -44,7 +46,7 @@ public class Ball : State
     }
     public void Accelerate(InputAction.CallbackContext context)
     {
-        Debug.Log("Accelerating");
+        _direction = context.ReadValue<Vector2>().x;
     }
 
     public void Ground() { }

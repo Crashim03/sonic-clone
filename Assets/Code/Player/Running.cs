@@ -18,14 +18,16 @@ public class Running : State
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
+        {
             _player.Jump(_jump);
 
-        _player.ChangeState(new Jumping()
-        {
-            _player = _player,
-            _direction = _direction
-        });
+            _player.ChangeState(new Jumping()
+            {
+                _player = _player,
+                _direction = _direction
+            });
+        }
     }
 
     public void Accelerate(InputAction.CallbackContext context)
@@ -40,7 +42,7 @@ public class Running : State
             _player.ChangeState(new Spindash()
             {
                 _player = _player,
-                _direction = _direction
+                _direction = _direction,
             });
         }
     }

@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rb;
     public Animator _animator;
     public float _speed = 0;
+    public float _lastDirection;
+    public bool _isSpindashing = false;
     public SpriteRenderer _spriteRenderer;
 
     private void Start()
@@ -30,14 +32,17 @@ public class Player : MonoBehaviour
     {
         _animator.SetInteger("State", _state.GetState());
         _animator.SetFloat("Speed", Math.Abs(_speed));
+        _animator.SetBool("Spindash", _isSpindashing);
 
         if (_speed > 0)
         {
             _spriteRenderer.flipX = false;
+            _lastDirection = 1;
         }
         else if (_speed < 0)
         {
             _spriteRenderer.flipX = true;
+            _lastDirection = -1;
         }
     }
 

@@ -9,17 +9,16 @@ public class Spindash : State
     public Player _player;
 
     public float _releaseSpeed = 10;
-    public bool _isSpinning = false;
     public float _direction;
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            if (!_isSpinning)
-                _isSpinning = true;
+            if (!_player._isSpindashing)
+                _player._isSpindashing = true;
 
-            else if (_releaseSpeed > 20)
+            else if (_releaseSpeed < 20)
                 _releaseSpeed += 2;
         }
     }
@@ -31,20 +30,25 @@ public class Spindash : State
 
     public void Crouch(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.canceled)
         {
-            _player._speed = _releaseSpeed * _direction;
             _player.ChangeState(new Ball()
             {
                 _player = _player,
                 _direction = _direction
             });
+
+            if (_player._isSpindashing)
+            {
+                _player._speed = _releaseSpeed * _player._lastDirection;
+                _player._isSpindashing = false;
+            }
         }
     }
 
     public void Accelerate(InputAction.CallbackContext context)
     {
-        Debug.Log("Accelerating");
+        _direction = context.ReadValue<Vector2>().x;
     }
 
     public void Decelerate()
