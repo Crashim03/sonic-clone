@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rb;
     public Animator _animator;
     public float _speed = 0;
-    public float _lastDirection;
+    public float _lastDirection = 1;
     public bool _isSpindashing = false;
     public SpriteRenderer _spriteRenderer;
 
