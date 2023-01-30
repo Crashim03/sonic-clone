@@ -58,6 +58,8 @@ public class Spindash : State
 
     public void Ground() { }
 
+    public void Fall() { }
+
     public int GetState()
     {
         return 3;

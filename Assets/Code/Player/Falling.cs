@@ -39,6 +39,8 @@ public class Falling : State
         });
     }
 
+    public void Fall() { }
+
     public int GetState()
     {
         return 4;

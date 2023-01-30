@@ -69,6 +69,11 @@ public class Player : MonoBehaviour
         _state.Ground();
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        _state.Fall();
+    }
+
     public void Move(float direction, float acceleration, float deceleration, float max_speed)
     {
         if (direction > 0)

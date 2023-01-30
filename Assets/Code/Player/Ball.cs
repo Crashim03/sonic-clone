@@ -51,6 +51,15 @@ public class Ball : State
 
     public void Ground() { }
 
+    public void Fall()
+    {
+        _player.ChangeState(new Jumping()
+        {
+            _player = _player,
+            _direction = _direction
+        });
+    }
+
     public int GetState()
     {
         return 2;

@@ -39,6 +39,8 @@ public class Jumping : State
         });
     }
 
+    public void Fall() { }
+
     public int GetState()
     {
         return 1;

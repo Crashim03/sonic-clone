@@ -51,6 +51,7 @@ public class Running : State
             else
             {
                 _player._speed = 0;
+                _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
                 _player.ChangeState(new Spindash()
                 {
                     _player = _player,
@@ -66,6 +67,15 @@ public class Running : State
     }
 
     public void Ground() { }
+
+    public void Fall()
+    {
+        _player.ChangeState(new Falling()
+        {
+            _player = _player,
+            _direction = _direction
+        });
+    }
 
     public int GetState()
     {
