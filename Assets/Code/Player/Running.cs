@@ -12,7 +12,7 @@ public class Running : State
     // Stats
     public float _maxSpeed = 30f;
     public float _acceleration = 0.2f;
-    public float _deceleration = 0.6f;
+    public float _deceleration = 0.2f;
     public float _jump = 15f;
 
 
