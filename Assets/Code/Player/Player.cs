@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         _animator.SetInteger("State", _state.GetState());
         _animator.SetFloat("Speed", Math.Abs(_speed));
         _animator.SetBool("Spindash", _isSpindashing);
+        _animator.SetBool("SuperSpeed", _isSuperSpeeding);
 
         if (_speed > 0)
         {

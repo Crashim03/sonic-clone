@@ -13,32 +13,12 @@ public class LookingUp : State
     {
         if (context.started)
         {
+            Debug.Log("Super");
             _player._isSuperSpeeding = true;
         }
     }
     public void Move() { }
-    public void Crouch(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
-        {
-            if (_player._isSuperSpeeding)
-            {
-                _player._speed = _releaseSpeed * _player._lastDirection;
-                _player._isSuperSpeeding = false;
-                _player.ChangeState(new Ball()
-                {
-                    _player = _player,
-                });
-            }
-            else
-            {
-                _player.ChangeState(new Running()
-                {
-                    _player = _player,
-                });
-            }
-        }
-    }
+    public void Crouch(InputAction.CallbackContext context) { }
     public void Ground() { }
     public void Fall() { }
     public int GetState()
@@ -49,6 +29,11 @@ public class LookingUp : State
     {
         if (context.canceled)
         {
+            if (_player._isSuperSpeeding)
+            {
+                _player._speed = _releaseSpeed * _player._lastDirection;
+                _player._isSuperSpeeding = false;
+            }
             _player.ChangeState(new Running()
             {
                 _player = _player,
