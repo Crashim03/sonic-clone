@@ -16,16 +16,19 @@ States:
 public class Player : MonoBehaviour
 {
     public State _state;
+
     public Rigidbody2D _rb;
     public Animator _animator;
+    public SpriteRenderer _spriteRenderer;
+
     public float _speed = 0;
     public float _jump = 17f;
     public float _direction = 0;
     public float _lastDirection = 1;
+
     public bool _isSpindashing = false;
     public bool _isSuperSpeeding = false;
     public bool _isBreaking = false;
-    public SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
@@ -57,17 +60,10 @@ public class Player : MonoBehaviour
         _state.Move();
     }
 
-    public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
-
     public void Accelerate(InputAction.CallbackContext context)
     {
         _direction = context.ReadValue<Vector2>().x;
     }
-
-    public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
-    public void LookUp(InputAction.CallbackContext context) { _state.LookUp(context); }
-
-    public void ChangeState(State state) { _state = state; }
 
     public void Jump()
     {
@@ -181,4 +177,9 @@ public class Player : MonoBehaviour
 
         _rb.velocity = new Vector2(_speed, _rb.velocity.y);
     }
+
+    public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
+    public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
+    public void LookUp(InputAction.CallbackContext context) { _state.LookUp(context); }
+    public void ChangeState(State state) { _state = state; }
 }

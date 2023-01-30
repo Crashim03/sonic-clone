@@ -10,6 +10,11 @@ public class Spindash : State
 
     public float _releaseSpeed = 25;
 
+    public int GetState()
+    {
+        return 3;
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -22,10 +27,6 @@ public class Spindash : State
         }
     }
 
-    public void Move()
-    {
-        Debug.Log("Moving");
-    }
 
     public void Crouch(InputAction.CallbackContext context)
     {
@@ -50,22 +51,9 @@ public class Spindash : State
         }
     }
 
-    public void LookUp(InputAction.CallbackContext context)
-    {
-        Debug.Log("Looking Up");
-    }
-
-    public void Decelerate()
-    {
-        Debug.Log("Decelerating");
-    }
-
+    public void LookUp(InputAction.CallbackContext context) { }
+    public void Decelerate() { }
+    public void Move() { }
     public void Ground() { }
-
     public void Fall() { }
-
-    public int GetState()
-    {
-        return 3;
-    }
 }

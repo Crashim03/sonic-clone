@@ -7,8 +7,14 @@ public class LookingUp : State
 {
     public Player _player;
 
-    public float _releaseSpeed = 50;
-    public float _currentTime;
+    private float _releaseSpeed = 50;
+    private float _currentTime;
+    private float _timeToSuperSpeed = 0.5f;
+
+    public int GetState()
+    {
+        return 5;
+    }
 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -20,19 +26,12 @@ public class LookingUp : State
             Debug.Log(_currentTime);
         }
     }
-    public void Move() { }
-    public void Crouch(InputAction.CallbackContext context) { }
-    public void Ground() { }
-    public void Fall() { }
-    public int GetState()
-    {
-        return 5;
-    }
+
     public void LookUp(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
-            if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > 1f)
+            if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _timeToSuperSpeed)
             {
                 _player._speed = _releaseSpeed * _player._lastDirection;
             }
@@ -43,4 +42,9 @@ public class LookingUp : State
             _player._isSuperSpeeding = false;
         }
     }
+
+    public void Move() { }
+    public void Crouch(InputAction.CallbackContext context) { }
+    public void Ground() { }
+    public void Fall() { }
 }

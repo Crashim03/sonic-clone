@@ -14,6 +14,11 @@ public class Running : State
     public float _acceleration = 0.2f;
     public float _deceleration = 0.2f;
 
+    public int GetState()
+    {
+        return 0;
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -55,8 +60,6 @@ public class Running : State
         _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, true);
     }
 
-    public void Ground() { }
-
     public void LookUp(InputAction.CallbackContext context)
     {
         _player.ChangeState(new LookingUp()
@@ -73,8 +76,5 @@ public class Running : State
         });
     }
 
-    public int GetState()
-    {
-        return 0;
-    }
+    public void Ground() { }
 }

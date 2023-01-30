@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public interface State
 {
     void Jump(InputAction.CallbackContext context);
-    void Move();
+    void LookUp(InputAction.CallbackContext context);
     void Crouch(InputAction.CallbackContext context);
+    void Move();
     void Ground();
     void Fall();
-    void LookUp(InputAction.CallbackContext context);
     int GetState();
 }

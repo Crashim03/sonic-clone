@@ -9,6 +9,11 @@ public class Ball : State
 
     public float _deceleration = 0.1f;
 
+    public int GetState()
+    {
+        return 2;
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -35,18 +40,6 @@ public class Ball : State
         }
     }
 
-    public void Crouch(InputAction.CallbackContext context)
-    {
-        Debug.Log("Crouching");
-    }
-
-    public void Ground() { }
-
-    public void LookUp(InputAction.CallbackContext context)
-    {
-        Debug.Log("Looking Up");
-    }
-
     public void Fall()
     {
         _player.ChangeState(new Jumping()
@@ -55,8 +48,7 @@ public class Ball : State
         });
     }
 
-    public int GetState()
-    {
-        return 2;
-    }
+    public void Crouch(InputAction.CallbackContext context) { }
+    public void Ground() { }
+    public void LookUp(InputAction.CallbackContext context) { }
 }

@@ -12,21 +12,14 @@ public class Falling : State
     public float _acceleration = 0.4f;
     public float _deceleration = 0.15f;
 
-    public void Jump(InputAction.CallbackContext context) { }
+    public int GetState()
+    {
+        return 4;
+    }
 
     public void Move()
     {
         _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
-    }
-
-    public void Crouch(InputAction.CallbackContext context)
-    {
-        Debug.Log("Crouching");
-    }
-
-    public void LookUp(InputAction.CallbackContext context)
-    {
-        Debug.Log("Looking Up");
     }
 
     public void Ground()
@@ -37,10 +30,8 @@ public class Falling : State
         });
     }
 
+    public void Jump(InputAction.CallbackContext context) { }
+    public void Crouch(InputAction.CallbackContext context) { }
+    public void LookUp(InputAction.CallbackContext context) { }
     public void Fall() { }
-
-    public int GetState()
-    {
-        return 4;
-    }
 }
