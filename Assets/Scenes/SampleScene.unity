@@ -399,6 +399,7 @@ MonoBehaviour:
   _rb: {fileID: 401877169}
   _animator: {fileID: 401877176}
   _speed: 0
+  _lastDirection: 1
   _isSpindashing: 0
   _spriteRenderer: {fileID: 401877171}
 --- !u!61 &401877175
@@ -551,8 +552,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417753617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6822, y: -3.024328, z: 0}
-  m_LocalScale: {x: 38.29354, y: 3.9916, z: 3.9916}
+  m_LocalPosition: {x: 71.2828, y: -2.8442, z: 0}
+  m_LocalScale: {x: 188.21834, y: 3.6315577, z: 3.9916}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

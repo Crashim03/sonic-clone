@@ -8,7 +8,7 @@ public class Spindash : State
 {
     public Player _player;
 
-    public float _releaseSpeed = 10;
+    public float _releaseSpeed = 25;
     public float _direction;
 
     public void Jump(InputAction.CallbackContext context)
@@ -18,8 +18,8 @@ public class Spindash : State
             if (!_player._isSpindashing)
                 _player._isSpindashing = true;
 
-            else if (_releaseSpeed < 20)
-                _releaseSpeed += 2;
+            else if (_releaseSpeed < 40)
+                _releaseSpeed += 3;
         }
     }
 

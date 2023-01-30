@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class Running : State
 {
     public Player _player;
 
     // Stats
-    public float _maxSpeed = 10;
-    public float _acceleration = 0.4f;
+    public float _maxSpeed = 30f;
+    public float _acceleration = 0.2f;
     public float _deceleration = 0.6f;
     public float _direction;
     public float _jump = 15f;
@@ -39,11 +40,23 @@ public class Running : State
     {
         if (context.started)
         {
-            _player.ChangeState(new Spindash()
+            if (Math.Abs(_player._speed) > 5)
             {
-                _player = _player,
-                _direction = _direction,
-            });
+                _player.ChangeState(new Ball()
+                {
+                    _player = _player,
+                    _direction = _direction,
+                });
+            }
+            else
+            {
+                _player._speed = 0;
+                _player.ChangeState(new Spindash()
+                {
+                    _player = _player,
+                    _direction = _direction,
+                });
+            }
         }
     }
 
