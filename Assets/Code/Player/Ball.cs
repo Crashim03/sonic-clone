@@ -8,7 +8,6 @@ public class Ball : State
     public Player _player;
 
     public float _deceleration = 0.1f;
-    public float _direction;
 
     public float _jump = 15f;
 
@@ -21,7 +20,6 @@ public class Ball : State
             _player.ChangeState(new Jumping()
             {
                 _player = _player,
-                _direction = _direction
             });
         }
     }
@@ -35,7 +33,6 @@ public class Ball : State
             _player.ChangeState(new Running()
             {
                 _player = _player,
-                _direction = _direction
             });
         }
     }
@@ -44,19 +41,19 @@ public class Ball : State
     {
         Debug.Log("Crouching");
     }
-    public void Accelerate(InputAction.CallbackContext context)
-    {
-        _direction = context.ReadValue<Vector2>().x;
-    }
 
     public void Ground() { }
+
+    public void LookUp(InputAction.CallbackContext context)
+    {
+        Debug.Log("Looking Up");
+    }
 
     public void Fall()
     {
         _player.ChangeState(new Jumping()
         {
             _player = _player,
-            _direction = _direction
         });
     }
 

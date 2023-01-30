@@ -13,7 +13,6 @@ public class Running : State
     public float _maxSpeed = 30f;
     public float _acceleration = 0.2f;
     public float _deceleration = 0.6f;
-    public float _direction;
     public float _jump = 15f;
 
 
@@ -26,14 +25,8 @@ public class Running : State
             _player.ChangeState(new Jumping()
             {
                 _player = _player,
-                _direction = _direction
             });
         }
-    }
-
-    public void Accelerate(InputAction.CallbackContext context)
-    {
-        _direction = context.ReadValue<Vector2>().x;
     }
 
     public void Crouch(InputAction.CallbackContext context)
@@ -45,17 +38,15 @@ public class Running : State
                 _player.ChangeState(new Ball()
                 {
                     _player = _player,
-                    _direction = _direction,
                 });
             }
             else
             {
                 _player._speed = 0;
-                _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
+                _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed);
                 _player.ChangeState(new Spindash()
                 {
                     _player = _player,
-                    _direction = _direction,
                 });
             }
         }
@@ -63,17 +54,24 @@ public class Running : State
 
     public void Move()
     {
-        _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
+        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed);
     }
 
     public void Ground() { }
+
+    public void LookUp(InputAction.CallbackContext context)
+    {
+        _player.ChangeState(new LookingUp()
+        {
+            _player = _player,
+        });
+    }
 
     public void Fall()
     {
         _player.ChangeState(new Falling()
         {
             _player = _player,
-            _direction = _direction
         });
     }
 

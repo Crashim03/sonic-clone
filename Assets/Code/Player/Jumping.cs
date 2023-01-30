@@ -11,18 +11,12 @@ public class Jumping : State
     public float _maxSpeed = 7;
     public float _acceleration = 0.4f;
     public float _deceleration = 0.3f;
-    public float _direction;
 
     public void Jump(InputAction.CallbackContext context) { }
 
-    public void Accelerate(InputAction.CallbackContext context)
-    {
-        _direction = context.ReadValue<Vector2>().x;
-    }
-
     public void Move()
     {
-        _player.Move(_direction, _acceleration, _deceleration, _maxSpeed);
+        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed);
     }
 
     public void Crouch(InputAction.CallbackContext context)
@@ -30,12 +24,16 @@ public class Jumping : State
         Debug.Log("Crouching");
     }
 
+    public void LookUp(InputAction.CallbackContext context)
+    {
+        Debug.Log("Looking Up");
+    }
+
     public void Ground()
     {
         _player.ChangeState(new Running()
         {
             _player = _player,
-            _direction = _direction
         });
     }
 
