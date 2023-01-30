@@ -9,13 +9,11 @@ public class Ball : State
 
     public float _deceleration = 0.1f;
 
-    public float _jump = 15f;
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            _player.Jump(_jump);
+            _player.Jump();
 
             _player.ChangeState(new Jumping()
             {

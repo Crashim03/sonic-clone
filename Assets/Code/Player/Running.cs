@@ -13,14 +13,12 @@ public class Running : State
     public float _maxSpeed = 30f;
     public float _acceleration = 0.2f;
     public float _deceleration = 0.2f;
-    public float _jump = 15f;
-
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            _player.Jump(_jump);
+            _player.Jump();
 
             _player.ChangeState(new Jumping()
             {

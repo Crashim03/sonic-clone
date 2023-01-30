@@ -11,8 +11,16 @@ public class Jumping : State
     public float _maxSpeed = 7;
     public float _acceleration = 0.4f;
     public float _deceleration = 0.3f;
+    public bool _jumpedCanceled = false;
 
-    public void Jump(InputAction.CallbackContext context) { }
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.canceled && _player._rb.velocity.y > 0 && !_jumpedCanceled)
+        {
+            _jumpedCanceled = true;
+            _player._rb.velocity = new Vector2(_player._rb.velocity.x, _player._rb.velocity.y * 0.5f);
+        }
+    }
 
     public void Move()
     {

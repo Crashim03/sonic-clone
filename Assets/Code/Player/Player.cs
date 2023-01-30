@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rb;
     public Animator _animator;
     public float _speed = 0;
+    public float _jump = 17f;
     public float _direction = 0;
     public float _lastDirection = 1;
     public bool _isSpindashing = false;
@@ -66,9 +67,9 @@ public class Player : MonoBehaviour
 
     public void ChangeState(State state) { _state = state; }
 
-    public void Jump(float jump)
+    public void Jump()
     {
-        _rb.velocity = new Vector2(_rb.velocity.x, jump);
+        _rb.velocity = new Vector2(_rb.velocity.x, _jump);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
