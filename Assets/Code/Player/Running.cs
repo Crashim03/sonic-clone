@@ -41,7 +41,7 @@ public class Running : State
             else
             {
                 _player._speed = 0;
-                _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed);
+                _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
                 _player.ChangeState(new Spindash()
                 {
                     _player = _player,
@@ -52,7 +52,7 @@ public class Running : State
 
     public void Move()
     {
-        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed);
+        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, true);
     }
 
     public void Ground() { }

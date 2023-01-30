@@ -24,7 +24,7 @@ public class Ball : State
 
     public void Move()
     {
-        _player.Move(0, 0, _deceleration, 0);
+        _player.Move(0, 0, _deceleration, 0, false);
 
         if (_player._speed == 0)
         {

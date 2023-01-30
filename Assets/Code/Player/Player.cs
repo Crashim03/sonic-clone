@@ -82,8 +82,10 @@ public class Player : MonoBehaviour
         _state.Fall();
     }
 
-    public void Move(float direction, float acceleration, float deceleration, float max_speed)
+    public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
+        if (canBreak) { deceleration *= 2; }
+
         if (direction > 0)
         {
             if (_speed < 0)
