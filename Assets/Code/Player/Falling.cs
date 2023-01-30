@@ -10,7 +10,7 @@ public class Falling : State
     // Stats
     public float _maxSpeed = 7;
     public float _acceleration = 0.4f;
-    public float _deceleration = 0.3f;
+    public float _deceleration = 0.05f;
 
     public void Jump(InputAction.CallbackContext context) { }
 
