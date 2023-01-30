@@ -84,13 +84,17 @@ public class Player : MonoBehaviour
 
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
-        if (canBreak) { deceleration *= 2; }
-
         if (direction > 0)
         {
             if (_speed < 0)
             {
-                _speed += deceleration * 2;
+                if (canBreak)
+                {
+                    _speed += deceleration * 10;
+                    Debug.Log("Breaking");
+                }
+                else
+                    _speed += deceleration * 2;
 
                 if (_speed > 0) { _speed = 0; }
             }
@@ -111,7 +115,13 @@ public class Player : MonoBehaviour
         {
             if (_speed > 0)
             {
-                _speed -= deceleration * 2;
+                if (canBreak)
+                {
+                    _speed -= deceleration * 10;
+                    Debug.Log("Breaking");
+                }
+                else
+                    _speed -= deceleration * 2;
 
                 if (_speed < 0) { _speed = 0; }
             }
