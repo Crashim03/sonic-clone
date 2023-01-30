@@ -12,7 +12,7 @@ public class LookingUp : State
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !_player._isSuperSpeeding)
         {
             Debug.Log("Super");
             _player._isSuperSpeeding = true;
