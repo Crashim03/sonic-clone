@@ -8,7 +8,7 @@ public class Spindash : State
 {
     public Player _player;
 
-    public float _releaseSpeed = 25;
+    private float _releaseSpeed = 25;
 
     public int GetState()
     {

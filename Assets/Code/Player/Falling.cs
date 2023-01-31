@@ -8,9 +8,9 @@ public class Falling : State
     public Player _player;
 
     // Stats
-    public float _maxSpeed = 7;
-    public float _acceleration = 0.4f;
-    public float _deceleration = 0.15f;
+    private float _maxSpeed = 7;
+    private float _acceleration = 0.4f;
+    private float _deceleration = 0.15f;
 
     public int GetState()
     {

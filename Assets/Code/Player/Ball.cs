@@ -7,7 +7,7 @@ public class Ball : State
 {
     public Player _player;
 
-    public float _deceleration = 0.1f;
+    private float _deceleration = 0.1f;
 
     public int GetState()
     {

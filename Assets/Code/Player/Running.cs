@@ -10,9 +10,9 @@ public class Running : State
     public Player _player;
 
     // Stats
-    public float _maxSpeed = 30f;
-    public float _acceleration = 0.2f;
-    public float _deceleration = 0.2f;
+    private float _maxSpeed = 30f;
+    private float _acceleration = 0.2f;
+    private float _deceleration = 0.2f;
 
     public int GetState()
     {
@@ -62,10 +62,15 @@ public class Running : State
 
     public void LookUp(InputAction.CallbackContext context)
     {
-        _player.ChangeState(new LookingUp()
+        if (context.started && Math.Abs(_player._speed) < 5)
         {
-            _player = _player,
-        });
+            _player._speed = 0;
+            _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+            _player.ChangeState(new LookingUp()
+            {
+                _player = _player,
+            });
+        }
     }
 
     public void Fall()
