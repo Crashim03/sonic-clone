@@ -20,9 +20,11 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rb;
     public Animator _animator;
     public SpriteRenderer _spriteRenderer;
+    public CapsuleCollider2D _colliderBall;
+    public CapsuleCollider2D _colliderIdle;
 
     public float _speed = 0;
-    public float _jump = 17f;
+    public float _jump = 15.5f;
     public float _direction = 0;
     public float _lastDirection = 1;
 
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _state = new Running() { _player = this };
+        _colliderBall.enabled = false;
+        _colliderIdle.enabled = true;
     }
 
     private void Update()
@@ -178,8 +182,24 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(_speed, _rb.velocity.y);
     }
 
+    public void ChangeState(State state)
+    {
+        _state = state;
+        int id = _state.GetState();
+
+        if (id == 2 || id == 1 || id == 3)
+        {
+            _colliderBall.enabled = true;
+            _colliderIdle.enabled = false;
+        }
+        else
+        {
+            _colliderBall.enabled = false;
+            _colliderIdle.enabled = true;
+        }
+    }
+
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
     public void LookUp(InputAction.CallbackContext context) { _state.LookUp(context); }
-    public void ChangeState(State state) { _state = state; }
 }

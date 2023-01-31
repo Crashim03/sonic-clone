@@ -207,7 +207,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1602346557, guid: 808839e5d17848e45b23c9d45b205168, type: 3}
+  m_Sprite: {fileID: 1239624316, guid: 2bde35320241f9449a6800ba8911f75a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -384,12 +384,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 401877169}
   _animator: {fileID: 401877176}
+  _spriteRenderer: {fileID: 401877171}
+  _colliderBall: {fileID: 1971732522}
+  _colliderIdle: {fileID: 1499755978}
   _speed: 0
+  _jump: 15
   _direction: 0
   _lastDirection: 1
   _isSpindashing: 0
   _isSuperSpeeding: 0
-  _spriteRenderer: {fileID: 401877171}
+  _isBreaking: 0
 --- !u!61 &401877175
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -724,6 +728,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.16364264, y: 0.16768353}
+  m_Offset: {x: -0.0017232426, y: 0.044803932}
+  m_Size: {x: 0.2498039, y: 0.2634464}
   m_Direction: 0
