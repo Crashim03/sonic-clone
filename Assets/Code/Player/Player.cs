@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
 
     public Transform _transform;
 
-    public float _speed = 0;
     public float _jump = 15.5f;
     public float _direction = 0;
     public float _lastDirection = 1;
@@ -43,39 +42,27 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _state = new Running() { _player = this };
-
-        _capsuleBall.enabled = false;
-        _boxBall.enabled = false;
-
-        _capsuleIdle.enabled = true;
-        _boxIdle.enabled = true;
-
-        _boxCrouch.enabled = false;
+        IdleColliders();
     }
 
     private void Update()
     {
         _animator.SetInteger("State", _state.GetState());
-        _animator.SetFloat("Speed", Math.Abs(_speed));
+        _animator.SetFloat("Speed", Math.Abs(_rb.velocity.x));
         _animator.SetBool("Spindash", _isSpindashing);
         _animator.SetBool("SuperSpeed", _isSuperSpeeding);
         _animator.SetBool("Breaking", _isBreaking);
 
-        if (_speed > 0)
+        if (_rb.velocity.x > 0)
         {
             _spriteRenderer.flipX = false;
             _lastDirection = 1;
         }
-        else if (_speed < 0)
+        else if (_rb.velocity.x < 0)
         {
             _spriteRenderer.flipX = true;
             _lastDirection = -1;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        _state.Move();
     }
 
     public void Accelerate(InputAction.CallbackContext context)
@@ -88,18 +75,10 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, _jump);
     }
 
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        _state.Ground(other);
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        _state.Fall();
-    }
-
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
+        float speed = _rb.velocity.x;
+
         if (!canBreak)
         {
             _isBreaking = false;
@@ -107,62 +86,62 @@ public class Player : MonoBehaviour
 
         if (direction > 0)
         {
-            if (_speed < 0)
+            if (speed < 0)
             {
                 if (canBreak)
                 {
-                    _speed += deceleration * 6;
+                    speed += deceleration * 6;
                     _isBreaking = true;
                 }
                 else
-                    _speed += deceleration * 2;
+                    speed += deceleration * 2;
 
-                if (_speed > 0)
+                if (speed > 0)
                 {
-                    _speed = 0;
+                    speed = 0;
                     _isBreaking = false;
                 }
             }
             else
             {
-                if (_speed < max_speed)
+                if (speed < max_speed)
                 {
-                    _speed += acceleration;
+                    speed += acceleration;
 
-                    if (_speed > max_speed)
+                    if (speed > max_speed)
                     {
-                        _speed = max_speed;
+                        speed = max_speed;
                     }
                 }
             }
         }
         else if (direction < 0)
         {
-            if (_speed > 0)
+            if (speed > 0)
             {
                 if (canBreak)
                 {
-                    _speed -= deceleration * 6;
+                    speed -= deceleration * 6;
                     _isBreaking = true;
                 }
                 else
-                    _speed -= deceleration * 2;
+                    speed -= deceleration * 2;
 
-                if (_speed < 0)
+                if (speed < 0)
                 {
-                    _speed = 0;
+                    speed = 0;
                     _isBreaking = false;
                 }
             }
             else
             {
-                if (_speed > -max_speed)
+                if (speed > -max_speed)
                 {
-                    _speed -= acceleration;
+                    speed -= acceleration;
 
-                    if (_speed < -max_speed)
+                    if (speed < -max_speed)
                     {
-                        _speed = -max_speed;
+                        speed = -max_speed;
                     }
                 }
             }
@@ -171,29 +150,29 @@ public class Player : MonoBehaviour
         {
             _isBreaking = false;
 
-            if (_speed > 0)
+            if (speed > 0)
             {
-                _speed -= deceleration;
+                speed -= deceleration;
 
-                if (_speed < 0)
+                if (speed < 0)
                 {
-                    _speed = 0;
+                    speed = 0;
                     _isBreaking = false;
                 }
             }
-            else if (_speed < 0)
+            else if (speed < 0)
             {
-                _speed += deceleration;
+                speed += deceleration;
 
-                if (_speed > 0)
+                if (speed > 0)
                 {
-                    _speed = 0;
+                    speed = 0;
                     _isBreaking = false;
                 }
             }
         }
 
-        _rb.velocity = new Vector2(_speed, _rb.velocity.y);
+        _rb.velocity = new Vector2(speed, _rb.velocity.y);
     }
 
     public void IdleColliders()
@@ -229,6 +208,12 @@ public class Player : MonoBehaviour
         _boxCrouch.enabled = false;
     }
 
+    private void FixedUpdate()
+    {
+        _state.Move();
+    }
+    private void OnTriggerEnter2D(Collider2D other) { _state.Ground(other); }
+    private void OnCollisionExit2D(Collision2D other) { _state.Fall(); }
     public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }

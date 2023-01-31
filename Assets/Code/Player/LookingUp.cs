@@ -33,7 +33,7 @@ public class LookingUp : State
         {
             if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _timeToSuperSpeed)
             {
-                _player._speed = _releaseSpeed * _player._lastDirection;
+                _player._rb.velocity = new Vector2(_releaseSpeed * _player._lastDirection, _player._rb.velocity.y);
             }
             _player.ChangeState(new Running()
             {
@@ -45,6 +45,6 @@ public class LookingUp : State
 
     public void Move() { }
     public void Crouch(InputAction.CallbackContext context) { }
-    public void Ground(Collision2D other) { }
+    public void Ground(Collider2D other) { }
     public void Fall() { }
 }

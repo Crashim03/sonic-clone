@@ -31,7 +31,7 @@ public class Ball : State
     {
         _player.Move(0, 0, _deceleration, 0, false);
 
-        if (_player._speed == 0)
+        if (_player._rb.velocity.x == 0)
         {
             _player.IdleColliders();
             _player.ChangeState(new Running()
@@ -53,6 +53,6 @@ public class Ball : State
     }
 
     public void Crouch(InputAction.CallbackContext context) { }
-    public void Ground(Collision2D other) { }
+    public void Ground(Collider2D other) { }
     public void LookUp(InputAction.CallbackContext context) { }
 }

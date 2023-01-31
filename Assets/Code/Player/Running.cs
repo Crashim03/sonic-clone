@@ -24,7 +24,7 @@ public class Running : State
         if (context.started)
         {
             _player.Jump();
-
+            _player.BallColliders();
             _player.ChangeState(new Jumping()
             {
                 _player = _player,
@@ -36,7 +36,7 @@ public class Running : State
     {
         if (context.started)
         {
-            if (Math.Abs(_player._speed) > 5)
+            if (Math.Abs(_player._rb.velocity.x) > 5)
             {
                 _player.BallColliders();
                 _player.ChangeState(new Ball()
@@ -46,8 +46,7 @@ public class Running : State
             }
             else
             {
-                _player._speed = 0;
-                _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+                _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
                 _player.CrouchColliders();
                 _player.ChangeState(new Spindash()
                 {
@@ -64,10 +63,9 @@ public class Running : State
 
     public void LookUp(InputAction.CallbackContext context)
     {
-        if (context.started && Math.Abs(_player._speed) < 5)
+        if (context.started && Math.Abs(_player._rb.velocity.x) < 5)
         {
-            _player._speed = 0;
-            _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+            _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
             _player.ChangeState(new LookingUp()
             {
                 _player = _player,
@@ -86,5 +84,5 @@ public class Running : State
         }
     }
 
-    public void Ground(Collision2D other) { }
+    public void Ground(Collider2D other) { }
 }

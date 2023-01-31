@@ -22,12 +22,16 @@ public class Falling : State
         _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
     }
 
-    public void Ground(Collision2D other)
+    public void Ground(Collider2D other)
     {
-        _player.ChangeState(new Running()
+        if (_player._rb.velocity.y <= 0)
         {
-            _player = _player,
-        });
+            _player.IdleColliders();
+            _player.ChangeState(new Running()
+            {
+                _player = _player,
+            });
+        }
     }
 
     public void Jump(InputAction.CallbackContext context) { }

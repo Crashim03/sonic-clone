@@ -34,7 +34,7 @@ public class Spindash : State
         {
             if (_player._isSpindashing)
             {
-                _player._speed = _releaseSpeed * _player._lastDirection;
+                _player._rb.velocity = new Vector2(_releaseSpeed * _player._lastDirection, _player._rb.velocity.y);
                 _player._isSpindashing = false;
                 _player.BallColliders();
                 _player.ChangeState(new Ball()
@@ -56,6 +56,6 @@ public class Spindash : State
     public void LookUp(InputAction.CallbackContext context) { }
     public void Decelerate() { }
     public void Move() { }
-    public void Ground(Collision2D other) { }
+    public void Ground(Collider2D other) { }
     public void Fall() { }
 }
