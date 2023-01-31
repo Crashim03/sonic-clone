@@ -15,35 +15,30 @@ States:
 
 public class Player : MonoBehaviour
 {
-    public State _state;
+    public State _state = new Running() { _player = this };
 
+    // Components
     public Rigidbody2D _rb;
     public Animator _animator;
     public SpriteRenderer _spriteRenderer;
 
+    // Colliders
     public CapsuleCollider2D _capsuleBall;
     public BoxCollider2D _boxBall;
-
     public CapsuleCollider2D _capsuleIdle;
     public BoxCollider2D _boxIdle;
-
     public BoxCollider2D _boxCrouch;
 
-    public Transform _transform;
-
+    // Stats
     public float _jump = 15.5f;
     public float _direction = 0;
     public float _lastDirection = 1;
 
+    // Animation states
     public bool _isSpindashing = false;
     public bool _isSuperSpeeding = false;
     public bool _isBreaking = false;
 
-    private void Start()
-    {
-        _state = new Running() { _player = this };
-        IdleColliders();
-    }
 
     private void Update()
     {
@@ -54,15 +49,6 @@ public class Player : MonoBehaviour
         _animator.SetBool("Breaking", _isBreaking);
     }
 
-    public void Accelerate(InputAction.CallbackContext context)
-    {
-        _direction = context.ReadValue<Vector2>().x;
-    }
-
-    public void Jump()
-    {
-        _rb.velocity = new Vector2(_rb.velocity.x, _jump);
-    }
 
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
@@ -208,10 +194,10 @@ public class Player : MonoBehaviour
         _boxCrouch.enabled = false;
     }
 
-    private void FixedUpdate()
-    {
-        _state.Move();
-    }
+    public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
+    public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
+    private void FixedUpdate() { _state.Move(); }
+    private void Start() { IdleColliders(); }
     private void OnTriggerEnter2D(Collider2D other) { _state.Ground(other); }
     private void OnCollisionExit2D(Collision2D other) { _state.Fall(); }
     public void ChangeState(State state) { _state = state; }

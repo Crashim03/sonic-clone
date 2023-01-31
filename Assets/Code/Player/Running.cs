@@ -56,11 +56,6 @@ public class Running : State
         }
     }
 
-    public void Move()
-    {
-        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, true);
-    }
-
     public void LookUp(InputAction.CallbackContext context)
     {
         if (context.started && Math.Abs(_player._rb.velocity.x) < 5)
@@ -84,5 +79,6 @@ public class Running : State
         }
     }
 
+    public void Move() { _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, true); }
     public void Ground(Collider2D other) { }
 }
