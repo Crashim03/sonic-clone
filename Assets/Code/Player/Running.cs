@@ -38,6 +38,7 @@ public class Running : State
         {
             if (Math.Abs(_player._speed) > 5)
             {
+                _player.BallColliders();
                 _player.ChangeState(new Ball()
                 {
                     _player = _player,
@@ -47,6 +48,7 @@ public class Running : State
             {
                 _player._speed = 0;
                 _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+                _player.CrouchColliders();
                 _player.ChangeState(new Spindash()
                 {
                     _player = _player,
@@ -75,11 +77,14 @@ public class Running : State
 
     public void Fall()
     {
-        _player.ChangeState(new Falling()
+        if (_player._rb.velocity.y < 0)
         {
-            _player = _player,
-        });
+            _player.ChangeState(new Falling()
+            {
+                _player = _player,
+            });
+        }
     }
 
-    public void Ground() { }
+    public void Ground(Collision2D other) { }
 }

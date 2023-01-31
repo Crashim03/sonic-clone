@@ -34,12 +34,22 @@ public class Jumping : State
         _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
     }
 
-    public void Ground()
+    public void Ground(Collision2D other)
     {
-        _player.ChangeState(new Running()
+        Transform otherTransform = other.gameObject.GetComponent<Transform>();
+
+        if (other.gameObject.tag == "Enemy")
         {
-            _player = _player,
-        });
+        }
+        else if (otherTransform.position.y < _player._transform.position.y && _player._rb.velocity.y <= 0)
+        {
+            Debug.Log("Grounded");
+            _player.IdleColliders();
+            _player.ChangeState(new Running()
+            {
+                _player = _player,
+            });
+        }
     }
 
     public void Crouch(InputAction.CallbackContext context) { }

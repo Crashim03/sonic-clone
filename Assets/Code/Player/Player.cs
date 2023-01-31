@@ -20,8 +20,16 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rb;
     public Animator _animator;
     public SpriteRenderer _spriteRenderer;
-    public CapsuleCollider2D _colliderBall;
-    public CapsuleCollider2D _colliderIdle;
+
+    public CapsuleCollider2D _capsuleBall;
+    public BoxCollider2D _boxBall;
+
+    public CapsuleCollider2D _capsuleIdle;
+    public BoxCollider2D _boxIdle;
+
+    public BoxCollider2D _boxCrouch;
+
+    public Transform _transform;
 
     public float _speed = 0;
     public float _jump = 15.5f;
@@ -35,8 +43,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _state = new Running() { _player = this };
-        _colliderBall.enabled = false;
-        _colliderIdle.enabled = true;
+
+        _capsuleBall.enabled = false;
+        _boxBall.enabled = false;
+
+        _capsuleIdle.enabled = true;
+        _boxIdle.enabled = true;
+
+        _boxCrouch.enabled = false;
     }
 
     private void Update()
@@ -74,12 +88,12 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, _jump);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
-        _state.Ground();
+        _state.Ground(other);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnCollisionExit2D(Collision2D other)
     {
         _state.Fall();
     }
@@ -182,23 +196,40 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(_speed, _rb.velocity.y);
     }
 
-    public void ChangeState(State state)
+    public void IdleColliders()
     {
-        _state = state;
-        int id = _state.GetState();
+        _capsuleBall.enabled = false;
+        _boxBall.enabled = false;
 
-        if (id == 2 || id == 1 || id == 3)
-        {
-            _colliderBall.enabled = true;
-            _colliderIdle.enabled = false;
-        }
-        else
-        {
-            _colliderBall.enabled = false;
-            _colliderIdle.enabled = true;
-        }
+        _capsuleIdle.enabled = true;
+        _boxIdle.enabled = true;
+
+        _boxCrouch.enabled = false;
     }
 
+    public void CrouchColliders()
+    {
+        _capsuleBall.enabled = false;
+        _boxBall.enabled = false;
+
+        _capsuleIdle.enabled = false;
+        _boxIdle.enabled = false;
+
+        _boxCrouch.enabled = true;
+    }
+
+    public void BallColliders()
+    {
+        _capsuleBall.enabled = true;
+        _boxBall.enabled = true;
+
+        _capsuleIdle.enabled = false;
+        _boxIdle.enabled = false;
+
+        _boxCrouch.enabled = false;
+    }
+
+    public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
     public void LookUp(InputAction.CallbackContext context) { _state.LookUp(context); }

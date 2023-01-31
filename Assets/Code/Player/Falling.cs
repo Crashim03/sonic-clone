@@ -22,7 +22,7 @@ public class Falling : State
         _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
     }
 
-    public void Ground()
+    public void Ground(Collision2D other)
     {
         _player.ChangeState(new Running()
         {

@@ -9,7 +9,7 @@ public interface State
     void LookUp(InputAction.CallbackContext context);
     void Crouch(InputAction.CallbackContext context);
     void Move();
-    void Ground();
+    void Ground(Collision2D other);
     void Fall();
     int GetState();
 }

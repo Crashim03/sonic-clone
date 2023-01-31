@@ -18,8 +18,8 @@ public class Ball : State
     {
         if (context.performed)
         {
-            _player.Jump();
 
+            _player.Jump();
             _player.ChangeState(new Jumping()
             {
                 _player = _player,
@@ -33,6 +33,7 @@ public class Ball : State
 
         if (_player._speed == 0)
         {
+            _player.IdleColliders();
             _player.ChangeState(new Running()
             {
                 _player = _player,
@@ -42,13 +43,16 @@ public class Ball : State
 
     public void Fall()
     {
-        _player.ChangeState(new Jumping()
+        if (_player._rb.velocity.y < 0)
         {
-            _player = _player,
-        });
+            _player.ChangeState(new Jumping()
+            {
+                _player = _player,
+            });
+        }
     }
 
     public void Crouch(InputAction.CallbackContext context) { }
-    public void Ground() { }
+    public void Ground(Collision2D other) { }
     public void LookUp(InputAction.CallbackContext context) { }
 }
