@@ -52,17 +52,6 @@ public class Player : MonoBehaviour
         _animator.SetBool("Spindash", _isSpindashing);
         _animator.SetBool("SuperSpeed", _isSuperSpeeding);
         _animator.SetBool("Breaking", _isBreaking);
-
-        if (_rb.velocity.x > 0)
-        {
-            _spriteRenderer.flipX = false;
-            _lastDirection = 1;
-        }
-        else if (_rb.velocity.x < 0)
-        {
-            _spriteRenderer.flipX = true;
-            _lastDirection = -1;
-        }
     }
 
     public void Accelerate(InputAction.CallbackContext context)
@@ -78,6 +67,17 @@ public class Player : MonoBehaviour
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
         float speed = _rb.velocity.x;
+
+        if (direction > 0)
+        {
+            _spriteRenderer.flipX = false;
+            _lastDirection = 1;
+        }
+        else if (direction < 0)
+        {
+            _spriteRenderer.flipX = true;
+            _lastDirection = -1;
+        }
 
         if (!canBreak)
         {
