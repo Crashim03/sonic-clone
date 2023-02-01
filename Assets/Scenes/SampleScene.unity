@@ -613,13 +613,13 @@ MonoBehaviour:
   _capsuleIdle: {fileID: 1499755978}
   _boxIdle: {fileID: 1499755979}
   _boxCrouch: {fileID: 1371465990}
-  _transform: {fileID: 401877172}
   _jump: 15
   _direction: 0
   _lastDirection: 1
   _isSpindashing: 0
   _isSuperSpeeding: 0
   _isBreaking: 0
+  _isPushing: 0
 --- !u!61 &401877175
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -633,7 +633,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0007651299, y: -0.17916037}
+  m_Offset: {x: 0.0007651299, y: -0.17971866}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -644,7 +644,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23886213, y: 0.031679243}
+  m_Size: {x: 0.23886213, y: 0.032795817}
   m_EdgeRadius: 0
 --- !u!95 &401877176
 Animator:

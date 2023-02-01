@@ -15,7 +15,7 @@ States:
 
 public class Player : MonoBehaviour
 {
-    public State _state = new Running() { _player = this };
+    public State _state;
 
     // Components
     public Rigidbody2D _rb;
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public bool _isSpindashing = false;
     public bool _isSuperSpeeding = false;
     public bool _isBreaking = false;
-
+    public bool _isPushing = false;
 
     private void Update()
     {
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
         _animator.SetBool("Spindash", _isSpindashing);
         _animator.SetBool("SuperSpeed", _isSuperSpeeding);
         _animator.SetBool("Breaking", _isBreaking);
+        _animator.SetBool("Pushing", _isPushing);
     }
 
 
@@ -197,8 +198,8 @@ public class Player : MonoBehaviour
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
     public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
     private void FixedUpdate() { _state.Move(); }
-    private void Start() { IdleColliders(); }
-    private void OnTriggerEnter2D(Collider2D other) { _state.Ground(other); }
+    private void Start() { IdleColliders(); _state = new Running() { _player = this }; }
+    private void OnTriggerStay2D(Collider2D other) { _state.Ground(other); }
     private void OnCollisionExit2D(Collision2D other) { _state.Fall(); }
     public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
