@@ -7,11 +7,6 @@ public class Falling : State
 {
     public Player _player;
 
-    // Stats
-    private float _maxSpeed = 7;
-    private float _acceleration = 0.4f;
-    private float _deceleration = 0.15f;
-
     public int GetState()
     {
         return 4;
@@ -19,7 +14,7 @@ public class Falling : State
 
     public void Move()
     {
-        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+        _player.Move(_player._direction, _player._accelerationJumping,  _player._decelerationJumping, _player._maxSpeedJumping, false);
     }
 
     public void Ground(Collider2D other)

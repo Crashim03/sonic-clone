@@ -9,11 +9,6 @@ public class Running : State
 {
     public Player _player;
 
-    // Stats
-    private float _maxSpeed = 30f;
-    private float _acceleration = 0.2f;
-    private float _deceleration = 0.2f;
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -77,7 +72,7 @@ public class Running : State
     public int GetState() { return 0; }
     public void Move()
     {
-        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, true);
+        _player.Move(_player._direction, _player._accelerationRunning, _player._decelerationRunning, _player._maxSpeedRunning, true);
     }
     public void Ground(Collider2D other)
     {

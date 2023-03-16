@@ -7,12 +7,6 @@ public class Jumping : State
 {
     public Player _player;
 
-    // Stats
-    private float _maxSpeed = 7;
-    private float _acceleration = 0.4f;
-    private float _deceleration = 0.15f;
-    private float _jumpDeceleration = 0.5f;
-
     private bool _jumpedCanceled = false;
 
     public int GetState()
@@ -25,13 +19,13 @@ public class Jumping : State
         if (context.canceled && _player._rb.velocity.y > 0 && !_jumpedCanceled)
         {
             _jumpedCanceled = true;
-            _player._rb.velocity = new Vector2(_player._rb.velocity.x, _player._rb.velocity.y * _jumpDeceleration);
+            _player._rb.velocity = new Vector2(_player._rb.velocity.x, _player._rb.velocity.y * _player._jumpDeceleration);
         }
     }
 
     public void Move()
     {
-        _player.Move(_player._direction, _acceleration, _deceleration, _maxSpeed, false);
+        _player.Move(_player._direction, _player._accelerationJumping, _player._decelerationJumping, _player._maxSpeedJumping, false);
     }
 
     public void Ground(Collider2D other)

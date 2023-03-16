@@ -7,8 +7,6 @@ public class Ball : State
 {
     public Player _player;
 
-    private float _deceleration = 0.1f;
-
     public int GetState()
     {
         return 2;
@@ -29,7 +27,7 @@ public class Ball : State
 
     public void Move()
     {
-        _player.Move(0, 0, _deceleration, 0, false);
+        _player.Move(0, 0, _player._decelerationBall, 0, false);
 
         if (_player._rb.velocity.x == 0)
         {

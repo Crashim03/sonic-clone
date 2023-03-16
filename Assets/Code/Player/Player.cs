@@ -29,13 +29,28 @@ public class Player : MonoBehaviour
     public BoxCollider2D _boxIdle;
     public BoxCollider2D _boxCrouch;
 
-    // Stats
-    public float _jump = 15.5f;
     public float _direction = 0;
     public float _lastDirection = 1;
 
+    // Stats
+    public float _jump = 15.5f;
+    public float _maxSpeedJumping = 7;
+    public float _accelerationJumping = 0.4f;
+    public float _decelerationJumping = 0.15f;
+    public float _jumpDeceleration = 0.5f;
+
+    public float _decelerationBall = 0.1f;
+
+    public float _releaseSuperSpeed = 50;
+    public float _timeToSuperSpeed = 0.5f;
+
+    public float _maxSpeedRunning = 30f;
+    public float _accelerationRunning = 0.2f;
+    public float _decelerationRunning = 0.2f;
+
+    public float _releaseSpeedSpindash = 25;
+
     // Animation states
-    public bool _isSpindashing = false;
     public bool _isSuperSpeeding = false;
     public bool _isBreaking = false;
     public bool _isPushing = false;
@@ -44,7 +59,6 @@ public class Player : MonoBehaviour
     {
         _animator.SetInteger("State", _state.GetState());
         _animator.SetFloat("Speed", Math.Abs(_rb.velocity.x));
-        _animator.SetBool("Spindash", _isSpindashing);
         _animator.SetBool("SuperSpeed", _isSuperSpeeding);
         _animator.SetBool("Breaking", _isBreaking);
         _animator.SetBool("Pushing", _isPushing);

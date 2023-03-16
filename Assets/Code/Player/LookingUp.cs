@@ -7,9 +7,7 @@ public class LookingUp : State
 {
     public Player _player;
 
-    private float _releaseSpeed = 50;
     private float _currentTime;
-    private float _timeToSuperSpeed = 0.5f;
 
     public int GetState()
     {
@@ -31,9 +29,9 @@ public class LookingUp : State
     {
         if (context.canceled)
         {
-            if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _timeToSuperSpeed)
+            if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _player._timeToSuperSpeed)
             {
-                _player._rb.velocity = new Vector2(_releaseSpeed * _player._lastDirection, _player._rb.velocity.y);
+                _player._rb.velocity = new Vector2(_player._releaseSuperSpeed * _player._lastDirection, _player._rb.velocity.y);
             }
             _player.ChangeState(new Running()
             {

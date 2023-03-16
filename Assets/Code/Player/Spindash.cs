@@ -8,7 +8,8 @@ public class Spindash : State
 {
     public Player _player;
 
-    private float _releaseSpeed = 25;
+    private float _releaseSpeed;
+    private bool _isSpindashing = false;
 
     public int GetState()
     {
@@ -19,8 +20,10 @@ public class Spindash : State
     {
         if (context.started)
         {
-            if (!_player._isSpindashing)
-                _player._isSpindashing = true;
+            if (!_isSpindashing) {
+                _isSpindashing = true;
+                _releaseSpeed = _player._releaseSpeedSpindash;
+            }
 
             else if (_releaseSpeed < 40)
                 _releaseSpeed += 3;
@@ -32,10 +35,9 @@ public class Spindash : State
     {
         if (context.canceled)
         {
-            if (_player._isSpindashing)
+            if (_isSpindashing)
             {
                 _player._rb.velocity = new Vector2(_releaseSpeed * _player._lastDirection, _player._rb.velocity.y);
-                _player._isSpindashing = false;
                 _player.BallColliders();
                 _player.ChangeState(new Ball()
                 {
