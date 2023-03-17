@@ -11,5 +11,4 @@ public interface State
     void Move();
     void Ground(Collider2D other);
     void Fall();
-    int GetState();
 }

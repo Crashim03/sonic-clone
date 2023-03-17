@@ -9,11 +9,6 @@ public class Jumping : State
 
     private bool _jumpedCanceled = false;
 
-    public int GetState()
-    {
-        return 1;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.canceled && _player._rb.velocity.y > 0 && !_jumpedCanceled)
@@ -32,6 +27,7 @@ public class Jumping : State
     {
         if (_player._rb.velocity.y <= 0)
         {
+            _player._animator.Play("Idle");
             _player.IdleColliders();
             _player.ChangeState(new Running()
             {

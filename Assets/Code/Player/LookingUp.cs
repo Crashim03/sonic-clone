@@ -7,19 +7,16 @@ public class LookingUp : State
 {
     public Player _player;
 
+    private bool _isSuperSpeeding = false;
     private float _currentTime;
-
-    public int GetState()
-    {
-        return 5;
-    }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started && !_player._isSuperSpeeding)
+        if (context.started && !_isSuperSpeeding)
         {
-            Debug.Log("Super");
-            _player._isSuperSpeeding = true;
+            Debug.Log("Super Speeding");
+            _player._animator.Play("Super Speeding");
+            _isSuperSpeeding = true;
             _currentTime = Time.realtimeSinceStartup;
             Debug.Log(_currentTime);
         }
@@ -29,15 +26,17 @@ public class LookingUp : State
     {
         if (context.canceled)
         {
-            if (_player._isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _player._timeToSuperSpeed)
+            if (_isSuperSpeeding && Time.realtimeSinceStartup - _currentTime > _player._timeToSuperSpeed)
             {
+                _player._animator.Play("Super Speed");
                 _player._rb.velocity = new Vector2(_player._releaseSuperSpeed * _player._lastDirection, _player._rb.velocity.y);
             }
+            else { _player._animator.Play("Idle"); }
+            
             _player.ChangeState(new Running()
             {
                 _player = _player,
             });
-            _player._isSuperSpeeding = false;
         }
     }
 

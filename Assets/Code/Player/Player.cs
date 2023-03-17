@@ -42,7 +42,6 @@ public class Player : MonoBehaviour
     public float _releaseSpeedSpindash = 25;
 
     // Animation states
-    public bool _isSuperSpeeding = false;
     public bool _isBreaking = false;
     public bool _isPushing = false;
 

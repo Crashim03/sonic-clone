@@ -7,17 +7,13 @@ public class Ball : State
 {
     public Player _player;
 
-    public int GetState()
-    {
-        return 2;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
 
             _player.Jump();
+            _player._animator.Play("Ball (Jump)");
             _player.ChangeState(new Jumping()
             {
                 _player = _player,
@@ -32,6 +28,7 @@ public class Ball : State
         if (_player._rb.velocity.x == 0)
         {
             _player.IdleColliders();
+            _player._animator.Play("Idle");
             _player.ChangeState(new Running()
             {
                 _player = _player,
@@ -43,6 +40,7 @@ public class Ball : State
     {
         if (_player._rb.velocity.y < 0)
         {
+            _player._animator.Play("Ball (Jump)");
             _player.ChangeState(new Jumping()
             {
                 _player = _player,

@@ -11,11 +11,6 @@ public class Spindash : State
     private float _releaseSpeed;
     private bool _isSpindashing = false;
 
-    public int GetState()
-    {
-        return 3;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -23,6 +18,7 @@ public class Spindash : State
             if (!_isSpindashing) {
                 _isSpindashing = true;
                 _releaseSpeed = _player._releaseSpeedSpindash;
+                _player._animator.Play("Spindash");
             }
 
             else if (_releaseSpeed < 40)
@@ -38,6 +34,7 @@ public class Spindash : State
             if (_isSpindashing)
             {
                 _player._rb.velocity = new Vector2(_releaseSpeed * _player._lastDirection, _player._rb.velocity.y);
+                _player._animator.Play("Ball (Slow)");
                 _player.BallColliders();
                 _player.ChangeState(new Ball()
                 {
@@ -47,6 +44,7 @@ public class Spindash : State
             else
             {
                 _player.IdleColliders();
+                _player._animator.Play("Idle");
                 _player.ChangeState(new Running()
                 {
                     _player = _player,

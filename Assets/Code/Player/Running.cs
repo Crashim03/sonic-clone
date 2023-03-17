@@ -14,6 +14,7 @@ public class Running : State
         if (context.started)
         {
             _player.Jump();
+            _player._animator.Play("Ball (Jump)");
             _player.BallColliders();
             _player.ChangeState(new Jumping()
             {
@@ -29,6 +30,7 @@ public class Running : State
             if (Math.Abs(_player._rb.velocity.x) > 5)
             {
                 _player.BallColliders();
+                _player._animator.Play("Ball (Slow)");
                 _player.ChangeState(new Ball()
                 {
                     _player = _player,
@@ -37,6 +39,7 @@ public class Running : State
             else
             {
                 _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
+                _player._animator.Play("Crouch");
                 _player.CrouchColliders();
                 _player.ChangeState(new Spindash()
                 {
@@ -51,6 +54,7 @@ public class Running : State
         if (context.started && Math.Abs(_player._rb.velocity.x) < 5)
         {
             _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
+            _player._animator.Play("Looking Up");
             _player.ChangeState(new LookingUp()
             {
                 _player = _player,
@@ -69,13 +73,10 @@ public class Running : State
         }
     }
 
-    public int GetState() { return 0; }
     public void Move()
     {
         _player.Move(_player._direction, _player._accelerationRunning, _player._decelerationRunning, _player._maxSpeedRunning, true);
     }
-    public void Ground(Collider2D other)
-    {
 
-    }
+    public void Ground(Collider2D other) { }
 }
