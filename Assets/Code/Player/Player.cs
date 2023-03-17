@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
     // Animation states
     public bool _isBreaking = false;
+    public bool _triedToSpeed = false;
     public bool _isPushing = false;
 
     private void Start()
@@ -52,16 +53,21 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         _animator.SetFloat("Speed", Math.Abs(_rb.velocity.x));
         _animator.SetBool("Breaking", _isBreaking);
         _animator.SetBool("Pushing", _isPushing);
     }
 
-
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
         float speed = _rb.velocity.x;
+
+        if (speed == 0 && _triedToSpeed && !_isBreaking && direction != 0 && canBreak) {
+            _animator.Play("Pushing");
+            _triedToSpeed = false;
+            _isPushing = true;
+        }
 
         if (speed > 0)
         {
@@ -81,6 +87,8 @@ public class Player : MonoBehaviour
 
         if (direction > 0)
         {
+            if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
+            
             if (speed < 0)
             {
                 if (canBreak)
@@ -99,6 +107,8 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
+
                 if (speed < max_speed)
                 {
                     speed += acceleration;
@@ -130,6 +140,8 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
+
                 if (speed > -max_speed)
                 {
                     speed -= acceleration;
@@ -143,6 +155,8 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _triedToSpeed = false;
+            _isPushing = false;
             _isBreaking = false;
 
             if (speed > 0)
@@ -205,9 +219,9 @@ public class Player : MonoBehaviour
         _boxCrouch.enabled = false;
     }
 
+    private void FixedUpdate() { _state.Move(); }
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
     public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
-    private void FixedUpdate() { _state.Move(); }
     private void OnTriggerStay2D(Collider2D other) { _state.Ground(other); }
     private void OnCollisionExit2D(Collision2D other) { _state.Fall(); }
     public void ChangeState(State state) { _state = state; }
