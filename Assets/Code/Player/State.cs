@@ -11,4 +11,5 @@ public interface State
     void Move();
     void Ground();
     void Fall();
+    void Push();
 }

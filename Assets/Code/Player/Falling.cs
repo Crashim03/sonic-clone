@@ -25,5 +25,6 @@ public class Falling : State
     public void Jump(InputAction.CallbackContext context) { }
     public void Crouch(InputAction.CallbackContext context) { }
     public void LookUp(InputAction.CallbackContext context) { }
+    public void Push() { }
     public void Fall() { }
 }

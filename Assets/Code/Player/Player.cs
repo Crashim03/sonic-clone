@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     // Colliders
     public CapsuleCollider2D _colliderBall;
     public CapsuleCollider2D _colliderIdle;
-    public CapsuleCollider2D _colliderCrouch;
 
     public float _direction = 0;
     public float _lastDirection = 1;
@@ -59,6 +58,61 @@ public class Player : MonoBehaviour
         _animator.SetBool("Pushing", _isPushing);
     }
 
+    public void IdleColliders()
+    {
+        _colliderBall.enabled = false;
+
+        _colliderIdle.enabled = true;
+    }
+
+    public void CrouchColliders()
+    {
+        _colliderBall.enabled = false;
+
+        _colliderIdle.enabled = false;
+    }
+
+    public void BallColliders()
+    {
+        _colliderBall.enabled = true;
+
+        _colliderIdle.enabled = false;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.contacts[0].normal);
+
+        _currentCollisions++;
+
+        // GroundCheck
+        if (collision.contacts[0].normal.y > 0f)
+            _state.Ground();
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if ((collision.contacts[0].normal.x == 1  && _direction == -1) || (collision.contacts[0].normal.x == -1 && _direction == 1)) {
+            _state.Push();
+        }
+        else if ((collision.contacts[0].normal.x == 1  && _direction == 1) || (collision.contacts[0].normal.x == -1 && _direction == -1)) {
+            _isPushing = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        _currentCollisions--;
+
+        Debug.Log(_currentCollisions);
+    }
+
+    private void FixedUpdate() { _state.Move(); 
+        if (_currentCollisions == 0)
+        {
+            _state.Fall();
+        }
+    }
     public void Move(float direction, float acceleration, float deceleration, float max_speed, bool canBreak)
     {
         float speed = _rb.velocity.x;
@@ -67,15 +121,26 @@ public class Player : MonoBehaviour
         {
             _spriteRenderer.flipX = false;
             _lastDirection = 1;
+
+            if (_isPushing) 
+            {
+                _animator.Play("Pushing");
+            }
         }
         else if (direction < 0)
         {
             _spriteRenderer.flipX = true;
             _lastDirection = -1;
+
+            if (_isPushing) 
+            {
+                _animator.Play("Pushing");
+            }
         }
 
         if (!canBreak)
         {
+            _isPushing = false;
             _isBreaking = false;
         }
 
@@ -143,6 +208,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _isPushing = false;
             _isBreaking = false;
 
             if (speed > 0)
@@ -172,63 +238,6 @@ public class Player : MonoBehaviour
         _rb.velocity = new Vector2(speed, _rb.velocity.y);
     }
 
-    public void IdleColliders()
-    {
-        _colliderBall.enabled = false;
-
-        _colliderIdle.enabled = true;
-
-        _colliderCrouch.enabled = false;
-    }
-
-    public void CrouchColliders()
-    {
-        _colliderBall.enabled = false;
-
-        _colliderIdle.enabled = false;
-
-        _colliderCrouch.enabled = true;
-    }
-
-    public void BallColliders()
-    {
-        _colliderBall.enabled = true;
-
-        _colliderIdle.enabled = false;
-
-        _colliderCrouch.enabled = false;
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.contacts[0].normal);
-
-        _currentCollisions++;
-
-        // GroundCheck
-        if (collision.contacts[0].normal.y > 0f)
-            _state.Ground();
-
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-  
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        _currentCollisions--;
-
-        Debug.Log(_currentCollisions);
-    }
-
-    private void FixedUpdate() { _state.Move(); 
-        if (_currentCollisions == 0)
-        {
-            _state.Fall();
-        }
-    }
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
     public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
     public void ChangeState(State state) { _state = state; }

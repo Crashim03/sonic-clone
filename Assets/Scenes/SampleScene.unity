@@ -609,7 +609,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 401877171}
   _colliderBall: {fileID: 1971732522}
   _colliderIdle: {fileID: 1499755978}
-  _colliderCrouch: {fileID: 1371465990}
   _direction: 0
   _lastDirection: 1
   _jump: 16
@@ -1110,8 +1109,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009489935, y: -0.090003744}
-  m_Size: {x: 0.27622944, y: 0.20992322}
+  m_Offset: {x: 0.009489935, y: -0.09003983}
+  m_Size: {x: 0.27622953, y: 0.20999624}
   m_Direction: 1
 --- !u!1 &1499755976
 GameObject:
@@ -1158,8 +1157,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009674361, y: -0.020354338}
-  m_Size: {x: 0.27441418, y: 0.34932998}
+  m_Offset: {x: 0.009674361, y: -0.01726492}
+  m_Size: {x: 0.27441418, y: 0.3431511}
   m_Direction: 0
 --- !u!1 &1971732520
 GameObject:
@@ -1206,8 +1205,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.002841927, y: 0.051352218}
-  m_Size: {x: 0.27437207, y: 0.28274116}
+  m_Offset: {x: -0.002841927, y: 0.054425776}
+  m_Size: {x: 0.27437207, y: 0.27659404}
   m_Direction: 0
 --- !u!1 &2144252992
 GameObject:

@@ -78,4 +78,9 @@ public class Running : State
     public void Ground()
     { 
     }
+
+    public void Push() {
+        _player._animator.Play("Pushing");
+        _player._isPushing = true;
+    }
 }

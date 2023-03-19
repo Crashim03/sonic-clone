@@ -35,5 +35,6 @@ public class Jumping : State
 
     public void Crouch(InputAction.CallbackContext context) { }
     public void LookUp(InputAction.CallbackContext context) { }
+    public void Push() { }
     public void Fall() { }
 }

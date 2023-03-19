@@ -57,5 +57,6 @@ public class Spindash : State
     public void Decelerate() { }
     public void Move() { }
     public void Ground() { }
+    public void Push() { }
     public void Fall() { }
 }
