@@ -25,15 +25,12 @@ public class Jumping : State
 
     public void Ground()
     {
-        if (_player._rb.velocity.y <= 0)
+        _player._animator.Play("Idle");
+        _player.IdleColliders();
+        _player.ChangeState(new Running()
         {
-            _player._animator.Play("Idle");
-            _player.IdleColliders();
-            _player.ChangeState(new Running()
-            {
-                _player = _player,
-            });
-        }
+            _player = _player,
+        });
     }
 
     public void Crouch(InputAction.CallbackContext context) { }

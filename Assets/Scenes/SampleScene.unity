@@ -607,9 +607,9 @@ MonoBehaviour:
   _rb: {fileID: 401877169}
   _animator: {fileID: 401877176}
   _spriteRenderer: {fileID: 401877171}
-  _boxBall: {fileID: 1971732522}
-  _boxIdle: {fileID: 0}
-  _boxCrouch: {fileID: 0}
+  _colliderBall: {fileID: 1971732522}
+  _colliderIdle: {fileID: 1499755978}
+  _colliderCrouch: {fileID: 1371465990}
   _direction: 0
   _lastDirection: 1
   _jump: 16
@@ -624,6 +624,7 @@ MonoBehaviour:
   _accelerationRunning: 0.2
   _decelerationRunning: 0.2
   _releaseSpeedSpindash: 25
+  _currentCollisions: 0
   _isBreaking: 0
   _triedToSpeed: 0
   _isPushing: 0
@@ -1109,8 +1110,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009489935, y: -0.0896427}
-  m_Size: {x: 0.2762294, y: 0.20889379}
+  m_Offset: {x: 0.009489935, y: -0.090003744}
+  m_Size: {x: 0.27622944, y: 0.20992322}
   m_Direction: 1
 --- !u!1 &1499755976
 GameObject:
@@ -1157,8 +1158,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009674361, y: -0.020357803}
-  m_Size: {x: 0.27441418, y: 0.34927592}
+  m_Offset: {x: 0.009674361, y: -0.020354338}
+  m_Size: {x: 0.27441418, y: 0.34932998}
   m_Direction: 0
 --- !u!1 &1971732520
 GameObject:
@@ -1192,8 +1193,8 @@ Transform:
   m_Father: {fileID: 401877172}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1971732522
-CircleCollider2D:
+--- !u!70 &1971732522
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1205,9 +1206,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0028642064, y: 0.049573887}
-  serializedVersion: 2
-  m_Radius: 0.13779087
+  m_Offset: {x: -0.002841927, y: 0.051352218}
+  m_Size: {x: 0.27437207, y: 0.28274116}
+  m_Direction: 0
 --- !u!1 &2144252992
 GameObject:
   m_ObjectHideFlags: 0

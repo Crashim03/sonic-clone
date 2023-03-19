@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer _spriteRenderer;
 
     // Colliders
-    public CircleCollider2D _colliderBall;
+    public CapsuleCollider2D _colliderBall;
     public CapsuleCollider2D _colliderIdle;
     public CapsuleCollider2D _colliderCrouch;
 
@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
 
     public float _releaseSpeedSpindash = 25;
 
+    public int _currentCollisions = 0;
+
     // Animation states
     public bool _isBreaking = false;
     public bool _triedToSpeed = false;
@@ -61,12 +63,12 @@ public class Player : MonoBehaviour
     {
         float speed = _rb.velocity.x;
 
-        if (speed > 0)
+        if (direction > 0)
         {
             _spriteRenderer.flipX = false;
             _lastDirection = 1;
         }
-        else if (speed < 0)
+        else if (direction < 0)
         {
             _spriteRenderer.flipX = true;
             _lastDirection = -1;
@@ -201,23 +203,32 @@ public class Player : MonoBehaviour
     {
         Debug.Log(collision.contacts[0].normal);
 
+        _currentCollisions++;
+
         // GroundCheck
-        if (collision.contacts[0].normal.y > 0.1f)
+        if (collision.contacts[0].normal.y > 0f)
             _state.Ground();
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-
+  
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log(collision.contactCount);
-        _state.Fall();
+        _currentCollisions--;
+
+        Debug.Log(_currentCollisions);
     }
 
-    private void FixedUpdate() { _state.Move(); }
+    private void FixedUpdate() { _state.Move(); 
+        if (_currentCollisions == 0)
+        {
+            _state.Fall();
+        }
+    }
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
     public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
     public void ChangeState(State state) { _state = state; }
