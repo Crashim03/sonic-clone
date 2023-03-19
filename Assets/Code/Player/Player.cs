@@ -14,9 +14,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer _spriteRenderer;
 
     // Colliders
-    public CapsuleCollider2D _capsuleBall;
-    public BoxCollider2D _boxBall;
-    public CapsuleCollider2D _capsuleIdle;
+    public CircleCollider2D _boxBall;
     public BoxCollider2D _boxIdle;
     public BoxCollider2D _boxCrouch;
 
@@ -188,10 +186,8 @@ public class Player : MonoBehaviour
 
     public void IdleColliders()
     {
-        _capsuleBall.enabled = false;
         _boxBall.enabled = false;
 
-        _capsuleIdle.enabled = true;
         _boxIdle.enabled = true;
 
         _boxCrouch.enabled = false;
@@ -199,10 +195,8 @@ public class Player : MonoBehaviour
 
     public void CrouchColliders()
     {
-        _capsuleBall.enabled = false;
         _boxBall.enabled = false;
 
-        _capsuleIdle.enabled = false;
         _boxIdle.enabled = false;
 
         _boxCrouch.enabled = true;
@@ -210,20 +204,30 @@ public class Player : MonoBehaviour
 
     public void BallColliders()
     {
-        _capsuleBall.enabled = true;
         _boxBall.enabled = true;
 
-        _capsuleIdle.enabled = false;
         _boxIdle.enabled = false;
 
         _boxCrouch.enabled = false;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.contacts[0].normal);
+
+        // GroundCheck
+        if (collision.contacts[0].normal.y > 0.1f)
+            _state.Ground();
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log(collision.contactCount);
+    }
+
     private void FixedUpdate() { _state.Move(); }
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
     public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
-    private void OnTriggerStay2D(Collider2D other) { _state.Ground(other); }
-    private void OnCollisionExit2D(Collision2D other) { _state.Fall(); }
     public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
