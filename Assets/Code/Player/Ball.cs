@@ -48,5 +48,6 @@ public class Ball : State
     public void Crouch(InputAction.CallbackContext context) { }
     public void Ground() { }
     public void LookUp(InputAction.CallbackContext context) { }
+    public void Balance(Collision2D collision) { }
     public void Push() { }
 }

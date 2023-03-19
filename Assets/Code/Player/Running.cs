@@ -83,4 +83,31 @@ public class Running : State
         _player._animator.Play("Pushing");
         _player._isPushing = true;
     }
+
+    public void Balance(Collision2D collision)
+    {
+        if (_player._rb.velocity.x == 0 && _player._direction == 0 && collision.contacts[0].normal.y == 1) {
+            // Left
+            if (_player.transform.position.x - _player._colliderIdle.bounds.size.x / 3
+                - collision.gameObject.transform.position.x + collision.gameObject.GetComponent<BoxCollider2D>().bounds.size.x / 2 < 0)
+            {
+                if (_player._lastDirection == 1)
+                    _player._animator.Play("Balance left");
+
+                else if (_player._lastDirection == -1)
+                    _player._animator.Play("Balance right");
+            }
+
+            // Right
+            if (-_player.transform.position.x - _player._colliderIdle.bounds.size.x / 3
+                + collision.gameObject.transform.position.x + collision.gameObject.GetComponent<BoxCollider2D>().bounds.size.x / 2 < 0)
+            {
+                if (_player._lastDirection == -1)
+                    _player._animator.Play("Balance left");
+
+                else if (_player._lastDirection == 1)
+                    _player._animator.Play("Balance right");
+            }
+        }
+    }
 }

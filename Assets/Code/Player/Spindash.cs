@@ -58,5 +58,6 @@ public class Spindash : State
     public void Move() { }
     public void Ground() { }
     public void Push() { }
+    public void Balance(Collision2D collision) { }
     public void Fall() { }
 }

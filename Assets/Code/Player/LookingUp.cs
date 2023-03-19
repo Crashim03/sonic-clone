@@ -44,5 +44,6 @@ public class LookingUp : State
     public void Crouch(InputAction.CallbackContext context) { }
     public void Ground() { }
     public void Push() { }
+    public void Balance(Collision2D collision) { }
     public void Fall() { }
 }

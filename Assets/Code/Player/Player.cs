@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
         else if ((collision.contacts[0].normal.x == 1  && _direction == 1) || (collision.contacts[0].normal.x == -1 && _direction == -1)) {
             _isPushing = false;
         }
+
+        _state.Balance(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)

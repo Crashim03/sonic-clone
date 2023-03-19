@@ -12,4 +12,5 @@ public interface State
     void Ground();
     void Fall();
     void Push();
+    void Balance(Collision2D collision);
 }
