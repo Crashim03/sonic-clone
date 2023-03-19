@@ -156,14 +156,14 @@ public class Player : MonoBehaviour
                 else
                     speed += deceleration * 2;
 
-                if (speed > 0)
+                if (speed >= 0)
                 {
                     speed = 0;
-                    _isBreaking = false;
                 }
             }
             else
             {
+                _isBreaking = false;
                 if (speed < max_speed)
                 {
                     speed += acceleration;
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
                 else
                     speed -= deceleration * 2;
 
-                if (speed < 0)
+                if (speed <= 0)
                 {
                     speed = 0;
                     _isBreaking = false;
@@ -195,6 +195,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                _isBreaking = false;
                 if (speed > -max_speed)
                 {
                     speed -= acceleration;
