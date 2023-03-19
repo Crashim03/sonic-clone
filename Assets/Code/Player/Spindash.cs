@@ -56,6 +56,6 @@ public class Spindash : State
     public void LookUp(InputAction.CallbackContext context) { }
     public void Decelerate() { }
     public void Move() { }
-    public void Ground(Collider2D other) { }
+    public void Ground() { }
     public void Fall() { }
 }

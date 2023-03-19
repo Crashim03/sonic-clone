@@ -23,7 +23,7 @@ public class Jumping : State
         _player.Move(_player._direction, _player._accelerationJumping, _player._decelerationJumping, _player._maxSpeedJumping, false);
     }
 
-    public void Ground(Collider2D other)
+    public void Ground()
     {
         if (_player._rb.velocity.y <= 0)
         {

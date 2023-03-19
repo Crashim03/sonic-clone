@@ -38,17 +38,14 @@ public class Ball : State
 
     public void Fall()
     {
-        if (_player._rb.velocity.y < 0)
+        _player._animator.Play("Ball (Jump)");
+        _player.ChangeState(new Jumping()
         {
-            _player._animator.Play("Ball (Jump)");
-            _player.ChangeState(new Jumping()
-            {
-                _player = _player,
-            });
-        }
+            _player = _player,
+        });
     }
 
     public void Crouch(InputAction.CallbackContext context) { }
-    public void Ground(Collider2D other) { }
+    public void Ground() { }
     public void LookUp(InputAction.CallbackContext context) { }
 }

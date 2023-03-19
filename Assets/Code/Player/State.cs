@@ -9,6 +9,6 @@ public interface State
     void LookUp(InputAction.CallbackContext context);
     void Crouch(InputAction.CallbackContext context);
     void Move();
-    void Ground(Collider2D other);
+    void Ground();
     void Fall();
 }

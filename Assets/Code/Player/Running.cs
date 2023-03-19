@@ -64,13 +64,10 @@ public class Running : State
 
     public void Fall()
     {
-        if (_player._rb.velocity.y < 0)
+        _player.ChangeState(new Falling()
         {
-            _player.ChangeState(new Falling()
-            {
-                _player = _player,
-            });
-        }
+            _player = _player,
+        });
     }
 
     public void Move()
@@ -78,5 +75,7 @@ public class Running : State
         _player.Move(_player._direction, _player._accelerationRunning, _player._decelerationRunning, _player._maxSpeedRunning, true);
     }
 
-    public void Ground(Collider2D other) { }
+    public void Ground()
+    { 
+    }
 }

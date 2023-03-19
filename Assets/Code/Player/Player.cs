@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
     public SpriteRenderer _spriteRenderer;
 
     // Colliders
-    public CircleCollider2D _boxBall;
-    public BoxCollider2D _boxIdle;
-    public BoxCollider2D _boxCrouch;
+    public CircleCollider2D _colliderBall;
+    public CapsuleCollider2D _colliderIdle;
+    public CapsuleCollider2D _colliderCrouch;
 
     public float _direction = 0;
     public float _lastDirection = 1;
@@ -61,12 +61,6 @@ public class Player : MonoBehaviour
     {
         float speed = _rb.velocity.x;
 
-        if (speed == 0 && _triedToSpeed && !_isBreaking && direction != 0 && canBreak) {
-            _animator.Play("Pushing");
-            _triedToSpeed = false;
-            _isPushing = true;
-        }
-
         if (speed > 0)
         {
             _spriteRenderer.flipX = false;
@@ -85,8 +79,6 @@ public class Player : MonoBehaviour
 
         if (direction > 0)
         {
-            if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
-            
             if (speed < 0)
             {
                 if (canBreak)
@@ -105,8 +97,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
-
                 if (speed < max_speed)
                 {
                     speed += acceleration;
@@ -138,8 +128,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (speed == 0 && canBreak && !_isBreaking) { _triedToSpeed = true; }
-
                 if (speed > -max_speed)
                 {
                     speed -= acceleration;
@@ -153,8 +141,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _triedToSpeed = false;
-            _isPushing = false;
             _isBreaking = false;
 
             if (speed > 0)
@@ -186,32 +172,32 @@ public class Player : MonoBehaviour
 
     public void IdleColliders()
     {
-        _boxBall.enabled = false;
+        _colliderBall.enabled = false;
 
-        _boxIdle.enabled = true;
+        _colliderIdle.enabled = true;
 
-        _boxCrouch.enabled = false;
+        _colliderCrouch.enabled = false;
     }
 
     public void CrouchColliders()
     {
-        _boxBall.enabled = false;
+        _colliderBall.enabled = false;
 
-        _boxIdle.enabled = false;
+        _colliderIdle.enabled = false;
 
-        _boxCrouch.enabled = true;
+        _colliderCrouch.enabled = true;
     }
 
     public void BallColliders()
     {
-        _boxBall.enabled = true;
+        _colliderBall.enabled = true;
 
-        _boxIdle.enabled = false;
+        _colliderIdle.enabled = false;
 
-        _boxCrouch.enabled = false;
+        _colliderCrouch.enabled = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log(collision.contacts[0].normal);
 
@@ -220,9 +206,15 @@ public class Player : MonoBehaviour
             _state.Ground();
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         Debug.Log(collision.contactCount);
+        _state.Fall();
     }
 
     private void FixedUpdate() { _state.Move(); }
