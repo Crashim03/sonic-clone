@@ -239,7 +239,7 @@ public class Player : MonoBehaviour
     }
 
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
-    public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); }
+    public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); _isPushing = false; _isBreaking = false; }
     public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
