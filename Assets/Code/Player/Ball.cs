@@ -11,7 +11,6 @@ public class Ball : State
     {
         if (context.performed)
         {
-
             _player.Jump();
             _player._animator.Play("Ball (Jump)");
             _player.ChangeState(new Jumping()
@@ -25,7 +24,7 @@ public class Ball : State
     {
         _player.Move(0, 0, _player._decelerationBall, 0, false);
 
-        if (_player._rb.velocity.x == 0)
+        if (_player._rb.velocity.magnitude == 0)
         {
             _player.IdleColliders();
             _player._animator.Play("Idle");

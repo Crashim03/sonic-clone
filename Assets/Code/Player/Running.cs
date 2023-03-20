@@ -27,7 +27,7 @@ public class Running : State
     {
         if (context.started)
         {
-            if (Math.Abs(_player._rb.velocity.x) > 5)
+            if (_player._rb.velocity.magnitude > 1)
             {
                 _player.BallColliders();
                 _player._animator.Play("Ball (Slow)");
@@ -38,7 +38,7 @@ public class Running : State
             }
             else
             {
-                _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
+                _player._rb.velocity = new Vector2(0, 0);
                 _player._animator.Play("Crouch");
                 _player.CrouchColliders();
                 _player.ChangeState(new Spindash()
@@ -51,9 +51,9 @@ public class Running : State
 
     public void LookUp(InputAction.CallbackContext context)
     {
-        if (context.started && Math.Abs(_player._rb.velocity.x) < 5)
+        if (context.started && _player._rb.velocity.magnitude < 1)
         {
-            _player._rb.velocity = new Vector2(0, _player._rb.velocity.y);
+            _player._rb.velocity = new Vector2(0, 0);
             _player._animator.Play("Looking Up");
             _player.ChangeState(new LookingUp()
             {

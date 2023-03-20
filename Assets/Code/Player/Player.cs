@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     public bool _triedToSpeed = false;
     public bool _isPushing = false;
 
+    public Vector2 _normal;
+
     private void Start()
     {
         IdleColliders();
@@ -53,7 +55,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {   
-        _animator.SetFloat("Speed", Math.Abs(_rb.velocity.x));
+        Debug.Log(_rb.velocity.magnitude);
+        _animator.SetFloat("Speed", Math.Abs(_rb.velocity.magnitude));
         _animator.SetBool("Breaking", _isBreaking);
         _animator.SetBool("Pushing", _isPushing);
     }
@@ -92,6 +95,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        _normal = new Vector2(collision.contacts[0].normal.x, collision.contacts[0].normal.y);
+
         if ((collision.contacts[0].normal.x == 1  && _direction == -1) || (collision.contacts[0].normal.x == -1 && _direction == 1)) {
             _state.Push();
         }
@@ -242,7 +247,7 @@ public class Player : MonoBehaviour
     }
 
     public void Accelerate(InputAction.CallbackContext context) { _direction = context.ReadValue<Vector2>().x; }
-    public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x, _jump); _isPushing = false; _isBreaking = false; }
+    public void Jump() { _rb.velocity = new Vector2(_rb.velocity.x + _normal.x * _jump, _normal.y*_jump); _isPushing = false; _isBreaking = false; }
     public void ChangeState(State state) { _state = state; }
     public void JumpAction(InputAction.CallbackContext context) { _state.Jump(context); }
     public void Crouch(InputAction.CallbackContext context) { _state.Crouch(context); }
